@@ -37,9 +37,6 @@ Route::get('/book/remove/{id}', ['middleware' => 'auth.role:1', 'uses' => 'BookC
 
 Route::post('/book/create', 'BookController@create');
 
-//test routes
-Route::get('test/addbook', 'TestController@addbooks');
-
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
@@ -81,3 +78,7 @@ Route::get('/cart/show', ['middleware' => 'auth.role:1', function () {
 
 //Historico
 Route::get('/historico', 'HomeController@getHistorico');
+
+
+//test routes
+Route::get('test/addbook', 'TestController@addbooks');
