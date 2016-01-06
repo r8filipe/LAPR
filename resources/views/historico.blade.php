@@ -1,9 +1,10 @@
 @extends('layout.master')
 
 @section('content')
+
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header"><a href="/">Histórico</a></h1>
+            <h1 class="page-header"><a href="">Histórico</a></h1>
         </div>
     </div>
     <div class="row">
@@ -34,6 +35,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
+                                                <?php $compras = 0;?>
                                                 @foreach($purchases as $purchase)
                                                     @foreach( $purchase->transaction as $item)
                                                         <tr>
@@ -44,9 +46,12 @@
 
                                                         </tr>
                                                     @endforeach
+                                                    <?php $compras += $purchase->transaction->sum('price');?>
                                                 @endforeach
                                                 </tbody>
                                             </table>
+                                            <div class="text-right">Total de vendas <span
+                                                        class="bold important"> € {{$compras}}</span></div>
                                         </div>
                                         <!-- /.table-responsive -->
                                     </div>
@@ -81,6 +86,8 @@
                                                 @endforeach
                                                 </tbody>
                                             </table>
+                                            <div class="text-right">Total de vendas <span
+                                                        class="bold important"> € {{$sales->sum('price')}}</span></div>
                                         </div>
                                         <!-- /.table-responsive -->
                                     </div>

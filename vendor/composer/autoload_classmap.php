@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddActiveCollumnBooks' => $baseDir . '/database/migrations/2015_12_28_000322_add_active_collumn_books.php',
+    'AddActiveUserTable' => $baseDir . '/database/migrations/2016_01_06_152649_add_active_user_table.php',
     'AddFkTables' => $baseDir . '/database/migrations/2015_12_27_152227_add_fk_tables.php',
     'AddRoleUser' => $baseDir . '/database/migrations/2015_12_27_163431_add_role_user.php',
     'AddUserIdPayment' => $baseDir . '/database/migrations/2016_01_04_225113_add_user_id_payment.php',

@@ -22,7 +22,7 @@ class User extends Model implements AuthenticatableContract,
      * @var string
      */
     protected $table = 'users';
-
+    protected $primaryKey = 'id';
     /**
      * The attributes that are mass assignable.
      *
@@ -41,4 +41,15 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany('App\Reviews');
     }
+
+    public function books()
+    {
+        return $this->hasMany('App\Book', 'id_user', 'id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany('App\Payment', 'user_id', 'id');
+    }
+
 }

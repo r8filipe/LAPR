@@ -44,7 +44,6 @@
 
         </div>
 
-        {{--Lista Oficinas--}}
         <?php $i = 1;?>
 
         @foreach($books as $book)

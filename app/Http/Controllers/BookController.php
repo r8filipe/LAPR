@@ -6,6 +6,7 @@ use App\Author;
 use App\Author_Book;
 use App\Book_Collection;
 use App\Publisher;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -136,9 +137,72 @@ class BookController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $user_id = Auth::user()->id;
+        $data = INPUT::all();
+        $rules = $this->rules();
+        $messages = $this->messages();
+        $validator = Validator::make($data, $rules, $messages);
+        if (!$validator->fails()) {
+            $book = Book::find($data['id']);
+            $book->title = $data['title'];
+            $book->subtitle = $data['subtitle'];
+            $book->publishedDate = $data['publishedDate'];
+            $book->description = $data['description'];
+            $book->pages = $data['pages'];
+            $book->isbn10 = $data['isbn10'];
+            $book->isbn13 = $data['isbn13'];
+            $book->price_day = $data['price_day'];
+            $book->price_bail = $data['price_bail'];
+            $book->price_sale = $data['price_sale'];
+            $book->language = $data['language'];
+
+            if ($data['publisher'] != $book->id_publisher) {
+                if ($data['publisher'] != '0') {
+                    $book->id_publisher = $data['publisher'];
+                } else {
+                    $publisher = new Publisher;
+                    $publisher->publisher = $data['newpublisher'];
+                    $publisher->save();
+                    $book->id_publisher = $publisher->id;
+                }
+            }
+
+            if (isset($data['cover'])) {
+                $book->cover = file_get_contents($data['cover']);
+            }
+
+            $book_id = $book->id;
+            Book_Collection::where('book_id', $book_id)->delete();
+            Author_Book::where('book_id', $book_id)->delete();
+
+            $book_collection = new Book_Collection;
+            $book_collection->book_id = $book_id;
+            $book_collection->collection_id = $data['collection'];
+
+            $authors = explode(',', $data['authors']);
+            foreach ($authors as $author) {
+                $tmp = Author::where('name', 'like', $author)->limit(1)->get();
+                if (count($tmp) > 0) {
+                    $author_book = new Author_Book;
+                    $author_book->book_id = $book_id;
+                    $author_book->author_id = $tmp[0]->id;
+                    $author_book->save();
+                } else {
+                    $newAuthor = new Author;
+                    $newAuthor->name = $author;
+                    $newAuthor->save();
+                    $author_id = $newAuthor->id;
+                    $author_book = new Author_Book;
+                    $author_book->book_id = $book_id;
+                    $author_book->author_id = $author_id;
+                    $author_book->save();
+                }
+            }
+            $book->save();
+            return redirect('book/edit/' . $book_id . '');
+        }
     }
 
     /**

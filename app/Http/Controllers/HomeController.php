@@ -91,12 +91,12 @@ class HomeController extends Controller
     public function getHistorico()
     {
         $purchase = Payment::where('user_id', \Auth::user()->id)->get();
-
+        $purchase->sum('price');
 
         $sale = Transaction::whereHas('book', function ($q) {
             $q->where('id_user', '=', \Auth::user()->id);
         })->get();
-
+        $sale->sum('price');
 
         return view('historico', ['purchases' => $purchase, 'sales' => $sale]);
     }
