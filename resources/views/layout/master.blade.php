@@ -17,7 +17,7 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="">Home</a></li>
-                <li><a href="">About</a></li>
+                <li><a href="/about ">About</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if(!Auth::check())
@@ -111,7 +111,7 @@
                             <li><a href="/book/create">Inserir Anuncio</a></li>
                             <li><a href="/book/list">Meus Anuncios</a></li>
                             <li><a href="/historico">Histórico</a></li>
-                            <li><a href="#">Something else here</a></li>
+
                             <li role="separator" class="divider"></li>
                             <li><a href="/auth/logout">Logout</a></li>
                         </ul>

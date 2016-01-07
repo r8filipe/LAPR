@@ -79,6 +79,10 @@ Route::get('/cart/show', ['middleware' => 'auth.role:1', function () {
 //Historico
 Route::get('/historico', 'HomeController@getHistorico');
 
-
+//About
+Route::get('/about', function()
+{
+    return View::make('about');
+});
 //test routes
 Route::get('test/addbook', 'TestController@addbooks');
