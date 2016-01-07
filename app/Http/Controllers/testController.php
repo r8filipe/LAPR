@@ -19,9 +19,9 @@ class TestController extends Controller
     {
         header('Content-Type: text/html; charset=utf-8');
 
-        $names = ['%22feliz%20gouveia%22', '%22nuno%20ribeiro%22'];
+        $names = ['%22feliz%20gouveia%22', '%22nuno%20ribeiro%22', '%22jose%20torres%22', '%22borges%20gouveia%22',
+            '%22Sophia%20breyner%22', '%22Fernando%20Pessoa%22', '%22Eça%20De%20Queiros%22'];
         foreach ($names as $name) {
-
 
             $content = file_get_contents('https://www.googleapis.com/books/v1/volumes?q=' . $name);
 
@@ -82,7 +82,7 @@ class TestController extends Controller
 
                 $books[] = $book;
                 $book->id_publisher = $publisher_id;
-                $book->id_user = 1;
+                $book->id_user = 4;
 
                 $book->save();
                 $book_id = $book->id;

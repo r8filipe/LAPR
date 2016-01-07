@@ -91,6 +91,8 @@ class BookController extends Controller
                 }
             }
             return redirect('book/show/' . $book_id . '');
+        } else {
+            return back()->withInput($data)->withErrors();
         }
 
     }
@@ -203,6 +205,7 @@ class BookController extends Controller
             $book->save();
             return redirect('book/edit/' . $book_id . '');
         }
+        return back()->withInput($data)->withErrors();
     }
 
     /**

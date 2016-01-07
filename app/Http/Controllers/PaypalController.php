@@ -99,7 +99,6 @@ class PaypalController extends BaseController
         try {
 
             $payment->create($this->_api_context);
-            dd($payment);
         } catch (PayPal\Exception\PPConnectionException $ex) {
             if (Config::get('app.debug')) {
                 echo "Exception: " . $ex->getMessage() . PHP_EOL;
@@ -116,7 +115,6 @@ class PaypalController extends BaseController
                 break;
             }
         }
-        dd($payment);
         // add payment ID to session
         Session::put('paypal_payment_id', $payment->getId());
         Session::put('articles', $article);
