@@ -19,7 +19,7 @@ class TestController extends Controller
     {
         header('Content-Type: text/html; charset=utf-8');
 
-        $names = ['%22feliz%20gouveia%22', '%22nuno%20ribeiro%22', '%22borges%20gouveia%22', '%22maria%20jardim%22','%22base%20dados%22','%22multimedia22','programacao%20c'];
+        $names = ['%22feliz%20gouveia%22', '%22nuno%20ribeiro%22'];
         foreach ($names as $name) {
 
 

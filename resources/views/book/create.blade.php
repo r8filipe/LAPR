@@ -26,8 +26,6 @@
                     @endif
                     <div class="form-group">
 
-                        {{--{!!  Form::open(array('route' => array('oficina.update', $oficina->id))) !!}--}}
-                        {{--{!!Form::model($oficina, array('route' => array('oficina.update', $oficina->id))) !!}--}}
                         {!! Form::open((array('url'=>'/book/create', 'method'=>'post','files' => true))) !!}
 
                         <div class="form-group{!! $errors->has('title') ? ' has-error' : '' !!}">
@@ -106,7 +104,7 @@
 
                         <div class="form-group {!! $errors->has('files[]') ? ' has-error' : '' !!}">
                             {!! Form::label('cover', 'Capa',array('class'=>'control-label'))!!}
-                            {!! Form::file('cover',array('class' => 'form-control', 'id'=>'files')) !!}
+                            {!! Form::file('cover',array('class' => 'form-control', 'id'=>'files' ,'required'=>'required')) !!}
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">

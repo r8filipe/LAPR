@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Portal Oficina</title>
+    <title>SB Admin 2 - Portal XBOOK</title>
 
     <!--JQUERY-->
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -38,6 +38,8 @@
     <link href="/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
 
+    <!-- Morris Charts CSS -->
+    <link href="/admin/bower_components/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="/admin/dist/css/sb-admin-2.css" rel="stylesheet">

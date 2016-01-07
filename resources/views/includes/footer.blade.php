@@ -24,6 +24,18 @@
         $('#dataTables-listCompras').DataTable({
             responsive: true
         });
+        $('#dataTables-listBook').DataTable({
+            responsive: true
+        });
+        $('#dataTables-listUser').DataTable({
+            responsive: true
+        });
+        $('#dataTables-listRental').DataTable({
+            responsive: true
+        });
+        $('#dataTables-listMyRental').DataTable({
+            responsive: true
+        });
         $('[data-toggle="tooltip"]').tooltip();
 
     });
@@ -68,6 +80,23 @@
             }
         }
     });
+
+
+    $('#login-form-link').click(function (e) {
+        $("#login-form").delay(100).fadeIn(100);
+        $("#register-form").fadeOut(100);
+        $('#register-form-link').removeClass('active');
+        $(this).addClass('active');
+        e.preventDefault();
+    });
+    $('#register-form-link').click(function (e) {
+        $("#register-form").delay(100).fadeIn(100);
+        $("#login-form").fadeOut(100);
+        $('#login-form-link').removeClass('active');
+        $(this).addClass('active');
+        e.preventDefault();
+    });
+
 </script>
 <script>
     $(document).ready(function () {

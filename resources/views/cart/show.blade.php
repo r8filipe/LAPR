@@ -10,7 +10,7 @@
             <div class="panel-body">
                 <div class="dataTable_wrapper">
                     {!! Form::open((array('url'=>'/payment', 'method'=>'post', 'class'=>'form-inline pesquisa'))) !!}
-                    <table class="table table-striped table-bordered table-hover" id="dataTables-listOficina">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-listBook">
                         <thead>
                         <tr>
                             <th class="text-center">Titlo</th>

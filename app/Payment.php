@@ -8,7 +8,7 @@ class payment extends Model
 {
     protected $table = 'payment';
     protected $primaryKey = 'payment_id';
-    protected $fillable = ['state', 'intent', 'cart'];
+    protected $fillable = ['state', 'intent', 'cart', 'user_id'];
 
 
     public function payer()

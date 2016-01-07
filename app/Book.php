@@ -37,6 +37,10 @@ class Book extends Model
     public function collections()
     {
         return $this->belongsToMany('App\Collection', 'books_collections', 'book_id', 'collection_id');
+    }
 
+    public function transaction()
+    {
+        return $this->hasMany('App\Transaction', 'book_id', 'id');
     }
 }

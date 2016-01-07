@@ -12,7 +12,8 @@
 		"laravelcollective/html": "5.1.*",
 		"kartik-v/bootstrap-fileinput": "@dev",
 		"genealabs/phpgmaps": "~0.3.0",
-		"paypal/rest-api-sdk-php": "*"
+		"paypal/rest-api-sdk-php": "*",
+		"guzzlehttp/guzzle": "~5.3|~6.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
