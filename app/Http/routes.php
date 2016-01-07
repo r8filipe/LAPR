@@ -57,13 +57,6 @@ Route::get('/book/remove/{id}', ['middleware' => 'auth.role:1', 'uses' => 'BookC
 Route::post('/book/edit', ['middleware' => 'auth.role:1', 'uses' => 'BookController@edit']);
 Route::post('/book/create', 'BookController@create');
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> master
-=======
->>>>>>> master
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
@@ -103,11 +96,9 @@ Route::get('/cart/show', ['middleware' => 'auth.role:1', function () {
 }]);
 
 
-//Historico
 Route::get('/historico', 'HomeController@getHistorico');
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 //backend
 Route::get('/backend/', ['middleware' => 'auth.role:4', function () {
     $books = App\Book::where('active', 0)->get();
@@ -150,13 +141,5 @@ Route::get('/test/sendmail', function () {
         $m->to($user->email, $user->name)->subject('Your Reminder!');
     });
 });
-=======
 
-//test routes
-Route::get('test/addbook', 'TestController@addbooks');
->>>>>>> master
-=======
 
-//test routes
-Route::get('test/addbook', 'TestController@addbooks');
->>>>>>> master
