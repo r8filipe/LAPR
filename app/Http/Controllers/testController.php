@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Publisher;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,9 +16,29 @@ use App\Author_Book;
 
 class TestController extends Controller
 {
+    function generateRandomString($length = 10)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
     public function addbooks()
     {
         header('Content-Type: text/html; charset=utf-8');
+
+        for ($i = 0; $i <= 10; $i++) {
+            $user = new User;
+            $user->name = $this->generateRandomString(5);
+            $user->password = crypt($user->name);
+            $user->email = $user->name . '@gmail.com';
+            $user->save();
+        }
+
 
         $names = ['%22feliz%20gouveia%22', '%22nuno%20ribeiro%22', '%22jose%20torres%22', '%22borges%20gouveia%22',
             '%22Sophia%20breyner%22', '%22Fernando%20Pessoa%22', '%22Eça%20De%20Queiros%22'];
@@ -78,11 +99,13 @@ class TestController extends Controller
 
 
                 if (isset($data['imageLinks']['thumbnail'])) $book->cover = file_get_contents($data['imageLinks']['thumbnail']);
-
+                $book->price_day = random_int(0, 15);
+                $book->price_bail = random_int(10, 50);
+                $book->price_sale = random_int(10, 79);
 
                 $books[] = $book;
                 $book->id_publisher = $publisher_id;
-                $book->id_user = 4;
+                $book->id_user = rand(1,10);
 
                 $book->save();
                 $book_id = $book->id;

@@ -29,18 +29,18 @@
                                 <div class="text-center"><h3><b>Register</b></h3></div>
                                 {!! Form::open((array('url'=>'/auth/register', 'method'=>'post', 'class'=>'form-horizontal', 'autocomplete'=>'off'))) !!}
                                 <div class="form-group">
-                                    {!! Form::text('name',null,array('class' => 'form-control', 'placeholder'=>'Nome', 'data-validation-required-message'=>'nome obrigatório')) !!}
+                                    {!! Form::text('name',null,array('class' => 'form-control', 'placeholder'=>'Nome', 'data-validation-required-message'=>'nome obrigatório', 'required' =>'required')) !!}
                                 </div>
                                 <div class="form-group">
                                     {!! Form::text('email',null,array('class' => 'form-control', 'placeholder'=>'Email',
-                                     'data-validation-required-message'=>'email obrigatório')) !!}
+                                     'data-validation-required-message'=>'email obrigatório', 'required' =>'required')) !!}
                                 </div>
                                 <div class="form-group">
-                                    {!! Form::password('password',array('class' => 'form-control','tabindex'=>'2','placeholder'=>'Password')) !!}
+                                    {!! Form::password('password',array('class' => 'form-control','tabindex'=>'2','placeholder'=>'Password', 'required' =>'required')) !!}
                                 </div>
                                 <div class="form-group">
                                     {!! Form::password('password_confirmation',array('class' => 'form-control',
-                                    'placeholder'=>'Please confirm password', 'data-validation-required-message'=>'password obrigatória')) !!}
+                                    'placeholder'=>'Please confirm password', 'data-validation-required-message'=>'password obrigatória', 'required' =>'required')) !!}
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
@@ -64,13 +64,13 @@
                                 <div class="form-group">
                                     {!! Form::label('email', 'Email',array('class'=>'"control-label'))!!}
                                     {!! Form::text('email',null,array('class' => 'form-control',
-                                            'placeholder'=>'email','value'=>old('email') )) !!}
+                                            'placeholder'=>'email', 'required' =>'required' )) !!}
                                 </div>
 
                                 <div class="form-group">
                                     {!! Form::label('password', 'Password')!!}
                                     {!! Form::password('password',array('class' => 'form-control',
-                                    'placeholder'=>'Password')) !!}
+                                    'placeholder'=>'Password', 'required' =>'required')) !!}
                                 </div>
 
                                 <div class="form-group">
