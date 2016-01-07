@@ -106,6 +106,8 @@ class HomeController extends Controller
 
         $purchases = Purchase::where('user_id', '=', \Auth::user()->id)->get();
         $rental = Aluguer::where('user_id', '=', \Auth::user()->id)->get();
-        return view('historico', ['purchases' => $purchases, 'sales' => $sale, 'rentals' => $rental, 'myRentals' => $myRental]);
+
+        $user = \App\User::find(\Auth::user()->id);
+        return view('historico', ['purchases' => $purchases, 'sales' => $sale, 'rentals' => $rental, 'myRentals' => $myRental, 'user' => $user]);
     }
 }

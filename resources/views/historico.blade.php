@@ -32,6 +32,7 @@
                                                     <th>Artigo</th>
                                                     <th>Preço</th>
                                                     <th>Data</th>
+                                                    <th>Avaliação</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -50,6 +51,20 @@
                                                             @endforeach
                                                         </td>
                                                         <td class="text-center">{{$purchase->created_at}}</td>
+                                                        <td class="text-center">
+                                                            {{--*/ $rev = false /*--}}
+                                                            @foreach($user->reviews as $review)
+
+                                                                @if($review['payment_id'] == $purchase->payment_id)
+                                                                    {{--*/ $rev = true /*--}}
+                                                                @endif
+                                                            @endforeach
+
+                                                            @if($rev == false)
+                                                                <a href="/user/review/{{$purchase->book->id_user}}/{{$purchase->payment_id}}/{{$purchase->book->id}}
+                                                                        ">Avaliar</a>
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                                 </tbody>
@@ -115,6 +130,7 @@
                                                     <th>Data Final</th>
                                                     <th>Preço</th>
                                                     <th>Devolver</th>
+                                                    <th>Avaliar</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -140,6 +156,20 @@
                                                                             class="fa fa-history"></i></a>
                                                             @elseif(isset($rental->returns->confirmed) && $rental->returns->confirmed == 1 )
                                                                 <i class="fa fa-check"></i>
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{--*/ $rev = false /*--}}
+                                                            @foreach($user->reviews as $review)
+
+                                                                @if($review['payment_id'] == $rental->payment_id)
+                                                                    {{--*/ $rev = true /*--}}
+                                                                @endif
+                                                            @endforeach
+
+                                                            @if($rev == false)
+                                                                <a href="/user/review/{{$rental->book->id_user}}/{{$rental->payment_id}}/{{$rental->book->id}}
+                                                                        ">Avaliar</a>
                                                             @endif
                                                         </td>
                                                     </tr>

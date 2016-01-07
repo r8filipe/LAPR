@@ -129,6 +129,14 @@ Route::get('/backend/book/status/{id}', ['middleware' => 'auth.role:4', function
 }]);
 
 
+//user
+Route::get('/user/review/{user}/{payment}/{book}', ['middleware' => 'auth.role:1', function ($user, $payment, $book) {
+    $user = \App\User::find($user);
+    return view('user/review', ['user' => $user, 'payment' => $payment, 'book' => $book]);
+}]);
+Route::post("/user/review", ['middleware' => 'auth.role:1', 'uses' => 'UserController@review']);
+
+
 //test routes
 Route::get('/test/addbook', 'TestController@addbooks');
 Route::get('/test/sendmail', function () {
@@ -141,5 +149,7 @@ Route::get('/test/sendmail', function () {
         $m->to($user->email, $user->name)->subject('Your Reminder!');
     });
 });
+
+
 
 
