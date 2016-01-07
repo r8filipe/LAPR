@@ -30,6 +30,12 @@
         $('#dataTables-listUser').DataTable({
             responsive: true
         });
+        $('#dataTables-listRental').DataTable({
+            responsive: true
+        });
+        $('#dataTables-listMyRental').DataTable({
+            responsive: true
+        });
         $('[data-toggle="tooltip"]').tooltip();
 
     });

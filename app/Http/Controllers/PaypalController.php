@@ -1,7 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Aluguer;
 use App\Book;
+use App\Purchase;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -45,7 +47,7 @@ class PaypalController extends BaseController
         $data = Input::get('option');
         foreach ($data as $key => $value) {
             $id_books[] = $key;
-            $article[$key] = array('option' => $value[0], 'days' => $value['day']);
+            $article[$key] = array('option' => $value[0], 'days' => $value['day'], 'id' => $key);
         }
         $books = Book::select('id', 'title', 'price_day', 'price_bail', 'price_sale')->find($id_books);
         $payer = new Payer();
@@ -54,10 +56,10 @@ class PaypalController extends BaseController
         $subtotal = 0;
         $currency = 'EUR';
         foreach ($books as $producto) {
-            if ($article[$producto->id]['option'] == 'buy')
-                $price = $producto->price_sale;
-            else
+            if ($article[$producto->id]['option'] == 'rent' && $article[$producto->id]['days'] > 0)
                 $price = ($producto->price_day * $article[$producto->id]['days']) + $producto->price_bail;
+            else
+                $price = $producto->price_sale;
             $item = new Item();
             $item->setName($producto->title)
                 ->setCurrency($currency)
@@ -97,6 +99,7 @@ class PaypalController extends BaseController
         try {
 
             $payment->create($this->_api_context);
+            dd($payment);
         } catch (PayPal\Exception\PPConnectionException $ex) {
             if (Config::get('app.debug')) {
                 echo "Exception: " . $ex->getMessage() . PHP_EOL;
@@ -113,8 +116,12 @@ class PaypalController extends BaseController
                 break;
             }
         }
+        dd($payment);
         // add payment ID to session
         Session::put('paypal_payment_id', $payment->getId());
+        Session::put('articles', $article);
+
+
         if (isset($redirect_url)) {
             // redirect to paypal
             return Redirect::away($redirect_url);
@@ -154,7 +161,9 @@ class PaypalController extends BaseController
             // Enviar correo a admin
             // Redireccionar
             $this->saveOrder($result);
+            $this->saveAluguer(Session::get('articles'), $result->id);
             Session::forget('cart');
+            Session::forget('articles');
             return Redirect::route('home')
                 ->with('message', 'Compra realizada de forma correcta');
         }
@@ -200,6 +209,28 @@ class PaypalController extends BaseController
             $book = Book::find($item->sku);
             $book['active'] = 0;
             $book->save();
+        }
+    }
+
+    public function saveAluguer($articles, $payment_id)
+    {
+
+        foreach ($articles as $article) {
+            if ($article['option'] == 'rent' && $article['days'] > 0) {
+                $rent = new Aluguer;
+                $rent->start = date('Y-m-d H:i:s');
+                $rent->end = date('Y-m-d H:i:s', strtotime('+' . $article['days'] . ' days', strtotime($rent->start)));
+                $rent->book_id = $article['id'];
+                $rent->user_id = Auth::user()->id;
+                $rent->payment_id = $payment_id;
+                $rent->save();
+            } else {
+                $purchase = new Purchase;
+                $purchase->book_id = $article['id'];
+                $purchase->user_id = Auth::user()->id;
+                $purchase->payment_id = $payment_id;
+                $purchase->save();
+            }
         }
     }
 

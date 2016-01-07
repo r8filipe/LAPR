@@ -37,16 +37,20 @@
                                                 <tbody>
                                                 <?php $compras = 0;?>
                                                 @foreach($purchases as $purchase)
-                                                    @foreach( $purchase->transaction as $item)
-                                                        <tr>
-                                                            <td>{{$item->payment_id}}</td>
-                                                            <td>{{$item->book->title}}</td>
-                                                            <td class="text-right">€{{$item->price}}</td>
-                                                            <td class="text-center">{{$item->created_at}}</td>
-
-                                                        </tr>
-                                                    @endforeach
-                                                    <?php $compras += $purchase->transaction->sum('price');?>
+                                                    <tr>
+                                                        <td>{{$purchase->payment_id}}</td>
+                                                        <td>{{$purchase->book->title}}</td>
+                                                        <td class="text-right">
+                                                            €
+                                                            @foreach($purchase->transaction as $transaction)
+                                                                @if($transaction->book_id == $purchase->book_id)
+                                                                    {{$transaction->price}}
+                                                                    <?php $compras += $transaction->price;?>
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td class="text-center">{{$purchase->created_at}}</td>
+                                                    </tr>
                                                 @endforeach
                                                 </tbody>
                                             </table>
@@ -88,6 +92,119 @@
                                             </table>
                                             <div class="text-right">Total de vendas <span
                                                         class="bold important"> € {{$sales->sum('price')}}</span></div>
+                                        </div>
+                                        <!-- /.table-responsive -->
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-search ">
+                            <a href="#" style="font-size:1.2em"><i class="fa fa-history"></i>
+                                Alugueres<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level" style="margin-top:25px;">
+                                <li>
+                                    <div class="panel-body">
+                                        <div class="dataTable_wrapper">
+                                            <table class="table table-striped table-bordered table-hover"
+                                                   id="dataTables-listRental">
+                                                <thead>
+                                                <tr>
+                                                    <th>Aluguer</th>
+                                                    <th>Artigo</th>
+                                                    <th>Data Inicio</th>
+                                                    <th>Data Final</th>
+                                                    <th>Preço</th>
+                                                    <th>Devolver</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php $compras = 0;?>
+                                                @foreach($rentals as $rental)
+                                                    <tr>
+                                                        <td>{{$rental->payment_id}}</td>
+                                                        <td>{{$rental->book->title}}</td>
+                                                        <td>{{$rental->start}}</td>
+                                                        <td>{{$rental->end}}</td>
+                                                        <td class="text-right">
+                                                            €
+                                                            @foreach($rental->transaction as $transaction)
+                                                                @if($transaction->book_id == $rental->book_id)
+                                                                    {{$transaction->price}}
+                                                                    <?php $compras += $transaction->price;?>
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td class="text-center">
+                                                            @if(!isset($rental->returns->confirmed))
+                                                                <a href="/book/return/{{ $rental->id}}"><i
+                                                                            class="fa fa-history"></i></a>
+                                                            @elseif(isset($rental->returns->confirmed) && $rental->returns->confirmed == 1 )
+                                                                <i class="fa fa-check"></i>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                            <div class="text-right">Total de vendas <span
+                                                        class="bold important"> € {{$compras}}</span></div>
+                                        </div>
+                                        <!-- /.table-responsive -->
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-search ">
+                            <a href="#" style="font-size:1.2em"><i class="fa fa-history"></i>
+                                Meus Alugueres<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level" style="margin-top:25px;">
+                                <li>
+                                    <div class="panel-body">
+                                        <div class="dataTable_wrapper">
+                                            <table class="table table-striped table-bordered table-hover"
+                                                   id="dataTables-listMyRental">
+                                                <thead>
+                                                <tr>
+                                                    <th>Aluguer</th>
+                                                    <th>Artigo</th>
+                                                    <th>Data Inicio</th>
+                                                    <th>Data Final</th>
+                                                    <th>Preço</th>
+                                                    <th>Confirmar Devolução</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php $aluguer = 0;?>
+                                                @foreach($myRentals as $myYental)
+                                                    <tr>
+                                                        <td>{{$myYental->payment_id}}</td>
+                                                        <td>{{$myYental->book->title}}</td>
+                                                        <td>{{$myYental->start}}</td>
+                                                        <td>{{$myYental->end}}</td>
+                                                        <td class="text-right">
+                                                            €
+                                                            @foreach($myYental->transaction as $transaction)
+                                                                @if($transaction->book_id == $myYental->book_id)
+                                                                    {{$transaction->price}}
+                                                                    <?php $aluguer += $transaction->price;?>
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{--{{$myYental->returns->confirmed}}--}}
+                                                            @if(isset($myYental->returns->confirmed) && $myYental->returns->confirmed == 0)
+                                                                <a href="/book/returnConfirmed/{{ $myYental->id}}"><i
+                                                                            class="fa fa-check"></i></a>
+                                                            @elseif(isset($myYental->returns->confirmed) && $myYental->returns->confirmed == 1)
+                                                                <i class="fa fa-check"></i>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                            <div class="text-right">Total em Alugueres <span
+                                                        class="bold important"> € {{$aluguer}}</span></div>
                                         </div>
                                         <!-- /.table-responsive -->
                                     </div>

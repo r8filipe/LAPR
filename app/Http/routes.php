@@ -38,6 +38,18 @@ Route::get('/book/list', ['middleware' => 'auth.role:1', function () {
         ->where('active', 1)->get();
     return view('book/list', ['books' => $books]);
 }]);
+Route::get('/book/return/{id}', ['middleware' => 'auth.role:1', function ($id) {
+    $returns = new App\Returns;
+    $returns->rental_id = $id;
+    $returns->save();
+    return back();
+}]);
+Route::get('/book/returnConfirmed/{id}', ['middleware' => 'auth.role:1', function ($id) {
+    $returns = App\Returns::where('rental_id', $id)->get();
+    $returns[0]->confirmed = 1;
+    $returns[0]->save();
+    return back();
+}]);
 
 Route::get('/book/remove/{id}', ['middleware' => 'auth.role:1', 'uses' => 'BookController@remove']);
 
@@ -120,3 +132,13 @@ Route::get('/backend/book/status/{id}', ['middleware' => 'auth.role:4', function
 
 //test routes
 Route::get('/test/addbook', 'TestController@addbooks');
+Route::get('/test/sendmail', function () {
+
+    $user = App\User::find(Auth::user()->id);
+
+    Mail::send('emails.welcome', ['user' => $user], function ($m) use ($user) {
+        $m->from('r8filipe@gmail.com', 'Your Application');
+
+        $m->to($user->email, $user->name)->subject('Your Reminder!');
+    });
+});
