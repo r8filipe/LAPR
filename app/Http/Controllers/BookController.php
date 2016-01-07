@@ -109,6 +109,7 @@ class BookController extends Controller
         } catch (\Exception $e) {
             return back();
         }
+        return back();
     }
 
     /**

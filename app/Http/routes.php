@@ -94,7 +94,14 @@ Route::get('/cart/show', ['middleware' => 'auth.role:1', function () {
         return view('cart/show', ['books' => $books]);
     }
 }]);
-
+Route::get('/cart/remove/{id}', ['middleware' => 'auth.role:1', function ($id) {
+    foreach (Session::get('cart.items') as $key => $item) {
+        if ($item == $id) {
+            Session::forget('cart.items.' . $key);
+        }
+    }
+    return back();
+}]);
 
 Route::get('/historico', 'HomeController@getHistorico');
 
