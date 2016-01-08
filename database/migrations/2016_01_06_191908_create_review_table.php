@@ -19,6 +19,7 @@ class CreateReviewTable extends Migration
             $table->integer('user_id');
             $table->string('review');
             $table->string('qualidade');
+            $table->string('payment_id');
             $table->timestamps();
         });
     }

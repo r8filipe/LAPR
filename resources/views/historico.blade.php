@@ -54,8 +54,8 @@
                                                         <td class="text-center">
                                                             {{--*/ $rev = false /*--}}
                                                             @foreach($user->reviews as $review)
-
-                                                                @if($review['payment_id'] == $purchase->payment_id)
+                                                                @if($review['payment_id'] == $purchase->payment_id
+                                                                    && $review['user_id_reviewer'] == $purchase->book->id_user )
                                                                     {{--*/ $rev = true /*--}}
                                                                 @endif
                                                             @endforeach
@@ -63,6 +63,8 @@
                                                             @if($rev == false)
                                                                 <a href="/user/review/{{$purchase->book->id_user}}/{{$purchase->payment_id}}/{{$purchase->book->id}}
                                                                         ">Avaliar</a>
+                                                            @else
+                                                                <a href="/user/review/{{$purchase->book->id_user}}">Rever</a>
                                                             @endif
                                                         </td>
                                                     </tr>
@@ -162,7 +164,8 @@
                                                             {{--*/ $rev = false /*--}}
                                                             @foreach($user->reviews as $review)
 
-                                                                @if($review['payment_id'] == $rental->payment_id)
+                                                                @if($review['payment_id'] == $rental->payment_id
+                                                                && $review['user_id_reviewer'] == $rental->book->id_user)
                                                                     {{--*/ $rev = true /*--}}
                                                                 @endif
                                                             @endforeach
@@ -170,6 +173,8 @@
                                                             @if($rev == false)
                                                                 <a href="/user/review/{{$rental->book->id_user}}/{{$rental->payment_id}}/{{$rental->book->id}}
                                                                         ">Avaliar</a>
+                                                            @else
+                                                                <a href="/user/review/{{$rental->book->id_user}}">Rever</a>
                                                             @endif
                                                         </td>
                                                     </tr>

@@ -52,4 +52,10 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany('App\Payment', 'user_id', 'id');
     }
 
+    public function avaliations()
+    {
+        return $this->hasMany('App\Review', 'user_id_reviewer', 'id');
+    }
+
+
 }
