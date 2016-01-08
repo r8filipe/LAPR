@@ -22,12 +22,11 @@ trait RegistersUsers
     /**
      * Handle a registration request for the application.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function postRegister(Request $request)
     {
-
         $validator = $this->validator($request->all());
 
         if ($validator->fails()) {
@@ -35,6 +34,7 @@ trait RegistersUsers
                 $request, $validator
             );
         }
+
         Auth::login($this->create($request->all()));
 
         return redirect($this->redirectPath());

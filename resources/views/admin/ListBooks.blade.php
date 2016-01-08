@@ -16,7 +16,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="dataTable_wrapper">
-                        <table class="table table-striped table-bordered table-hover" id="dataTables-listOficina">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-listBook">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -58,9 +58,7 @@
                                     <td>{{$book->price_sale}}</td>
                                     <td>{{$book->price_bail}}</td>
                                     <td>
-                                        <a href="/backend/oficina/edit/{{$book->id}}"><i
-                                                    class="fa fa-edit fa-fw"></i></a>
-                                        <a href="/backend/oficina/status/{{$book->id}}"><i class="fa
+                                        <a href="/backend/book/status/{{$book->id}}"><i class="fa
                                           {{$book->active == 1 ? 'fa-times' : 'fa-check'}}
                                                     fa-fw"></i></a>
 

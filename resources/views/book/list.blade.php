@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header"><a href="/">Livros</a></h1>
+            <h1 class="page-header"><a href="">Meus Anuncios</a></h1>
         </div>
     </div>
     <div class="row">
@@ -26,7 +26,7 @@
                     @endif
                     <div class="panel-body">
                         <div class="dataTable_wrapper">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-listOficina">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-listBook">
                                 <thead>
                                 <tr>
                                     <th>ID</th>

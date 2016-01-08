@@ -2,7 +2,7 @@
 
 @section('content')
     {{--{{dd($books)}}--}}
-    <div class="col-md-12">
+    <div class="col-md-12" style="padding-top:90px">
         <div class="well">
             <ul class="nav" id="side-menu">
                 <li class="sidebar-search ">
@@ -44,7 +44,6 @@
 
         </div>
 
-        {{--Lista Oficinas--}}
         <?php $i = 1;?>
 
         @foreach($books as $book)
@@ -52,7 +51,7 @@
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail">
                     <div class=" col-md-4">
-                        <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($book['cover']) . '" />';?>
+                        <?php echo '<img src="data:image/png;base64,' . base64_encode($book['cover']) . '" />';?>
                     </div>
                     <div class="col-md-8" style="height: 150px; margin-top:25px;">
                         <p class="text-right important">Aluguer: <span class="bold">€ {{$book->price_day}}</span></p>

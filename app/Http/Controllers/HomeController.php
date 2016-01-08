@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Transaction;
 use App\Payment;
+use App\Purchase;
+use App\Aluguer;
 
 class HomeController extends Controller
 {
@@ -90,14 +92,22 @@ class HomeController extends Controller
 
     public function getHistorico()
     {
-        $purchase = Payment::where('user_id', \Auth::user()->id)->get();
-
 
         $sale = Transaction::whereHas('book', function ($q) {
             $q->where('id_user', '=', \Auth::user()->id);
         })->get();
+        $sale->sum('price');
 
 
-        return view('historico', ['purchases' => $purchase, 'sales' => $sale]);
+        $myRental = Aluguer::whereHas('book', function ($q) {
+            $q->where('id_user', '=', \Auth::user()->id);
+        })->get();
+
+
+        $purchases = Purchase::where('user_id', '=', \Auth::user()->id)->get();
+        $rental = Aluguer::where('user_id', '=', \Auth::user()->id)->get();
+
+        $user = \App\User::find(\Auth::user()->id);
+        return view('historico', ['purchases' => $purchases, 'sales' => $sale, 'rentals' => $rental, 'myRentals' => $myRental, 'user' => $user]);
     }
 }
