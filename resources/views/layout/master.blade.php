@@ -17,7 +17,7 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
-                <li><a href="">About</a></li>
+                <li><a href="/about">About</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if(!Auth::check())
@@ -162,7 +162,7 @@
             <div class="col-lg-3 col-sm-3">
                 <h4>Informações</h4>
                 <ul class="row">
-                    <li class="col-lg-12 col-sm-12 col-xs-3"><a href="/about.php">Sobre Nós</a></li>
+                    <li class="col-lg-12 col-sm-12 col-xs-3"><a href="/about">Sobre Nós</a></li>
                     <li class="col-lg-12 col-sm-12 col-xs-3"><a href="/auth/login">Registar</a></li>
                 </ul>
             </div>

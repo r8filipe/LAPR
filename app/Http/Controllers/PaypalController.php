@@ -29,6 +29,9 @@ use PayPal;
 use Config;
 use URL;
 use Redirect;
+use PDF;
+use App\User;
+use Mail;
 
 class PaypalController extends BaseController
 {
@@ -160,6 +163,7 @@ class PaypalController extends BaseController
             // Redireccionar
             $this->saveOrder($result);
             $this->saveAluguer(Session::get('articles'), $result->id);
+            $this->sendmail($payment);
             Session::forget('cart');
             Session::forget('articles');
             return Redirect::route('home')
@@ -230,6 +234,27 @@ class PaypalController extends BaseController
                 $purchase->save();
             }
         }
+    }
+
+    public function sendmail($payment)
+    {
+        $user = User::find(Auth::user()->id);
+        $content = "Em anexo a sua fatura<br/>Volte sempre.";
+        Mail::send(array('html' => 'emails.welcome'), ['user' => $user, "content" => $content], function ($m) use ($user, $payment) {
+
+            $pdf = PDF::loadView('invoice',array('payment' => $payment));
+
+
+            $m->from('r8filipe@gmail.com', 'Your Application');
+
+            $m->to($user->email, $user->name)->subject('Your invoice!');
+            $m->attach('images/facebook.png');
+            $m->attach('images/twitter.png');
+            $m->attach('images/linkedin.png');
+            $m->attach('images/instagram.png');
+            $m->attach('images/xbook.png');
+            $m->attachData($pdf->output(), "invoice.pdf");
+        });
     }
 
 
