@@ -36,6 +36,12 @@
                     <li>
                         <a href="/backend/users"><i class="fa fa-dashboard fa-fw"></i>Utilizadores</a>
                     </li>
+                    <li>
+                        <a href="/"><i class="fa fa-dashboard fa-fw"></i>HOME</a>
+                    </li>
+                    <li>
+                        <a href="/auth/logout"><i class="fa fa-dashboard fa-fw"></i>LOGOUT</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

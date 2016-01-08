@@ -147,6 +147,13 @@ Route::get('/user/review/{user}',['middleware' => 'auth.role:1', function($user)
     $user = \App\User::find($user);
     return view('user/reviews',['user' => $user]);
 }]);
+Route::get('/user/status/{user}',['middleware' => 'auth.role:4', function($user){
+    $user = \App\User::find($user);
+    $user->active = 0;
+    $user->save();
+
+    return back();
+}]);
 
 //test routes
 Route::get('/test/addbook', 'TestController@addbooks');
