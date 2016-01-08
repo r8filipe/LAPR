@@ -178,5 +178,8 @@ Para dar um ar de produção profissional<br/> ao seu documento, o Word disponib
     return view('emails.welcome', ['user' => $user, 'content' => $content]);
 });
 
+Route::get('/about', function () {
+    return view('about');
+});
 
 
