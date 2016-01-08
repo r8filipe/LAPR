@@ -34,7 +34,7 @@ class TestController extends Controller
         for ($i = 0; $i <= 10; $i++) {
             $user = new User;
             $user->name = $this->generateRandomString(5);
-            $user->password = crypt($user->name);
+            $user->password = bcrypt($user->name);
             $user->email = $user->name . '@gmail.com';
             $user->save();
         }
