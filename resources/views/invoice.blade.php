@@ -198,16 +198,16 @@
 
             <table>
                 {{--*/ $val = 0 /*--}}
-                @foreach ($payment->transactions[0]->item_list->items as $item) {
-                <tr>
-                    <td style="width:8%;">{{$item->sku}}</td>
-                    <td style="text-align:left; padding-left:10px;">{{$item->description}}
-                    </td>
-                    <td class="mono" style="width:15%;">{{$item->quantity}}</td>
-                    <td style="width:15%;" class="mono">{{$item->price}}</td>
-                    <td style="width:15%;" class="mono">{{$item->price}}</td>
-                    {{--*/ $val += $item->price /*--}}
-                </tr>
+                @foreach ($payment->transactions[0]->item_list->items as $item)
+                    <tr>
+                        <td style="width:8%;">{{$item->sku}}</td>
+                        <td style="text-align:left; padding-left:10px;">{{$item->description}}
+                        </td>
+                        <td class="mono" style="width:15%;">{{$item->quantity}}</td>
+                        <td style="width:15%;" class="mono">{{$item->price}}</td>
+                        <td style="width:15%;" class="mono">{{$item->price}}</td>
+                        {{--*/ $val += $item->price /*--}}
+                    </tr>
                 @endforeach
 
                 <tr>
