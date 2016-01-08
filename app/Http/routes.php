@@ -143,6 +143,10 @@ Route::get('/user/review/{user}/{payment}/{book}', ['middleware' => 'auth.role:1
 }]);
 Route::post("/user/review", ['middleware' => 'auth.role:1', 'uses' => 'UserController@review']);
 
+Route::get('/user/review/{user}',['middleware' => 'auth.role:1', function($user){
+    $user = \App\User::find($user);
+    return view('user/reviews',['user' => $user]);
+}]);
 
 //test routes
 Route::get('/test/addbook', 'TestController@addbooks');
