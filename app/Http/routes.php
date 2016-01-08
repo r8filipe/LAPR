@@ -148,15 +148,35 @@ Route::post("/user/review", ['middleware' => 'auth.role:1', 'uses' => 'UserContr
 Route::get('/test/addbook', 'TestController@addbooks');
 Route::get('/test/sendmail', function () {
 
-    $user = App\User::find(Auth::user()->id);
+    $user = App\User::find(4);
+    $content = "Os temas e estilos também contribuem para manter o seu documento coordenado. Quando clica em Estrutura e escolhe um novo Tema, as imagens, gráficos e gráficos SmartArt são alterados para que combinem com o seu novo tema. Quando aplica estilos, os seus títulos alteram-se para combinar com o novo tema.
+Poupe tempo no Word com novos botões que aparecem onde precisa deles. Para alterar a forma como uma imagem se adequa ao seu documento, clique nela e aparecerá um botão para opções de esquema junto à mesma. Quando trabalha numa tabela, clique onde quiser para adicionar uma linha ou uma coluna e  clique no sinal de adição.
+Ler é também mais fácil com a nova vista de Leitura<br/> Pode fechar partes do documento e concentrar-se no texto que quiser. Se precisar de parar de ler antes de chegar ao final, o Word lembra-se do local onde ficou - mesmo noutro dispositivo.
+O vídeo é uma forma poderosa de provar o seu ponto de vista. Quando clica em Vídeo Online, pode colar o código incorporado para o vídeo que quer adicionar. Pode também escrever uma palavra-chave para procurar online o vídeo que melhor se adapta ao seu documento.
+Para dar um ar de produção profissional<br/> ao seu documento, o Word disponibiliza desenhos de cabeçalho, rodapé, folha de rosto e caixas de texto que se complementam entre si. Por exemplo, pode adicionar uma folha de rosto, um cabeçalho e uma barra lateral que combinam entre si. Clique em Inserir e escolha os elementos que quiser das diferentes galerias.
+";
+    Mail::send(array('html' => 'emails.welcome'), ['user' => $user, "content" => $content], function ($m) use ($user) {
+        $m->from('28124@ufp.edu.pt', 'Your Application');
 
-    Mail::send('emails.welcome', ['user' => $user], function ($m) use ($user) {
-        $m->from('r8filipe@gmail.com', 'Your Application');
-
-        $m->to($user->email, $user->name)->subject('Your Reminder!');
+        $m->to('28124@ufp.edu.pt', $user->name)->subject('Your Reminder!');
+        $m->attach('images/facebook.png');
+        $m->attach('images/twitter.png');
+        $m->attach('images/linkedin.png');
+        $m->attach('images/instagram.png');
+        $m->attach('images/xbook.png');
     });
 });
 
+Route::get('/test/email', function () {
+    $user = \App\User::find(4);
+    $content = "Os temas e estilos também contribuem para manter o seu documento coordenado. Quando clica em Estrutura e escolhe um novo Tema, as imagens, gráficos e gráficos SmartArt são alterados para que combinem com o seu novo tema. Quando aplica estilos, os seus títulos alteram-se para combinar com o novo tema.
+Poupe tempo no Word com novos botões que aparecem onde precisa deles. Para alterar a forma como uma imagem se adequa ao seu documento, clique nela e aparecerá um botão para opções de esquema junto à mesma. Quando trabalha numa tabela, clique onde quiser para adicionar uma linha ou uma coluna e  clique no sinal de adição.
+Ler é também mais fácil com a nova vista de Leitura.<br/> Pode fechar partes do documento e concentrar-se no texto que quiser. Se precisar de parar de ler antes de chegar ao final, o Word lembra-se do local onde ficou - mesmo noutro dispositivo.
+O vídeo é uma forma poderosa de provar o seu ponto de vista. Quando clica em Vídeo Online, pode colar o código incorporado para o vídeo que quer adicionar. Pode também escrever uma palavra-chave para procurar online o vídeo que melhor se adapta ao seu documento.
+Para dar um ar de produção profissional<br/> ao seu documento, o Word disponibiliza desenhos de cabeçalho, rodapé, folha de rosto e caixas de texto que se complementam entre si. Por exemplo, pode adicionar uma folha de rosto, um cabeçalho e uma barra lateral que combinam entre si. Clique em Inserir e escolha os elementos que quiser das diferentes galerias.
+";
+    return view('emails.welcome', ['user' => $user, 'content' => $content]);
+});
 
 
 
