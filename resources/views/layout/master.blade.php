@@ -111,6 +111,7 @@
                             <li><a href="/book/create">Inserir Anuncio</a></li>
                             <li><a href="/book/list">Meus Anuncios</a></li>
                             <li><a href="/historico">Histórico</a></li>
+                            <li><a href="/user/review/{{Auth::user()->id}}">Minhas avaliações</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/auth/logout">Logout</a></li>
                         </ul>
