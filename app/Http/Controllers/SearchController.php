@@ -56,7 +56,7 @@ class SearchController extends Controller
 
 
                 if ($term['collection'] != '') {
-                    $books = $books->join('books_collections', 'book_id', '=', 'books.id');
+                    $books = $books->join('books_collections', 'books_collections.book_id', '=', 'books.id');
                     $books = $books->where('books_collections.collection_id', '=', $request->input('collection'));
                 }
                 $url['collection'] = $term['collection'];

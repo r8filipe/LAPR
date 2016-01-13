@@ -21,7 +21,6 @@
                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 {{$message}}<br/>
                             @endforeach
-
                         </div>
                     @endif
                     <div class="form-group">

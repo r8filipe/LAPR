@@ -122,7 +122,7 @@
                             </div>
                         </div>
 
-                        {!! Form::submit('Create') !!}
+                        {!! Form::submit('Edit') !!}
                         {!! Form::close() !!}
                     </div>
 
