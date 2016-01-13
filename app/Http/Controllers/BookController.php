@@ -92,7 +92,7 @@ class BookController extends Controller
             }
             return redirect('book/show/' . $book_id . '');
         } else {
-            return back()->withInput($data)->withErrors();
+            return back()->withInput($data)->withErrors($validator);
         }
 
     }
@@ -206,7 +206,7 @@ class BookController extends Controller
             $book->save();
             return redirect('book/edit/' . $book_id . '');
         }
-        return back()->withInput($data)->withErrors();
+        return back()->withInput($data)->withErrors($validator);
     }
 
     /**
@@ -261,7 +261,7 @@ class BookController extends Controller
             'price_sale.required' => 'Campo "Preço venda" é obrigatório',
             'cover.required' => 'Campo "Capa" é obrigatório',
             'image' => 'Os formatos válidos são : jpeg, png, bmp, gif, e svg',
-            'date_format' => 'São permitidos o seguintes formatos: AAAA-mm-dd ou AAAA'
+            'date_format' => 'São permitidos o seguintes formatos: AAAA-mm-dd ou AAAA',
         ];
     }
 }

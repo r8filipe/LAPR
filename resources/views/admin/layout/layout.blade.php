@@ -11,7 +11,6 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/backend/">SB Admin v2.0</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -29,6 +28,9 @@
                             </span>
                         </div>
                         <!-- /input-group -->
+                    </li>
+                    <li>
+                        <a href="/backend"><i class="fa fa-dashboard fa-fw"></i>Admin</a>
                     </li>
                     <li>
                         <a href="/backend/books"><i class="fa fa-dashboard fa-fw"></i>Livros</a>
